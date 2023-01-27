@@ -29,10 +29,10 @@ pipeline{
         stage("Push Prod Images"){
             steps{
                 sh '''
-                docker build -t tomeriva/client ./fibonacci/client
-                docker build -t tomeriva/nginx  ./fibonacci/nginx
-                docker build -t tomeriva/server ./fibonacci/server
-                docker build -t tomeriva/worker ./fibonacci/worker
+                docker push tomeriva/client
+                docker push tomeriva/nginx
+                docker push tomeriva/server
+                docker push tomeriva/worker
                 '''
             }
         }
