@@ -20,7 +20,7 @@ pipeline{
             steps{
                 sh '''
                 docker build -t tomeriva/client ./fibonacci/client
-                docker build -t tomeriva/nginx ./fibonacci/nginx
+                docker build -t tomeriva/nginx  ./fibonacci/nginx
                 docker build -t tomeriva/server ./fibonacci/server
                 docker build -t tomeriva/worker ./fibonacci/worker
                 '''
@@ -45,15 +45,15 @@ pipeline{
     post{
         always{
             echo "========always========"
-            cleanup()
+            cleanWs()
         }
         success{
             echo "========pipeline executed successfully ========"
-            cleanup()
+            cleanWs()
         }
         failure{
             echo "========pipeline execution failed========"
-            cleanup()
+            cleanWs()
         }
     }
 }
