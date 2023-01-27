@@ -1,21 +1,9 @@
 pipeline{
-    agent{ dockerfile {
-                    filename 'Dockerfile.build'
-                    dir './nodejs-app'
-                    label 'tomeriva/nodejs'
-                    additionalBuildArgs  '--build-arg version=1.0.2'
-                    args '-v /tmp:/tmp'
-                }
-        }
+    agent ("test")
     stages{
         stage("Build Image"){
             steps{
-                dockerfile {
-                    filename 'Dockerfile.build'
-                    dir './nodejs-app'
-                    label 'tomeriva/nodejs'
-                    additionalBuildArgs  '--build-arg version=1.0.2'
-                    args '-v /tmp:/tmp'
+                sh 'docker build -t tomeriva/testapp ./nodejs-app/.'
                 }
             }
         }
