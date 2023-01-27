@@ -1,0 +1,33 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t tomeriva/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true tomeriva/react-test npm run test
+
+after_success:
+  - docker build -t tomeriva/multi-client -f ./client/Dockerfile ./client
+  - docker build -t tomeriva/multi-nginx  -f ./nginx/Dockerfile  ./nginx
+  - docker build -t tomeriva/multi-server -f ./server/Dockerfile ./server
+  - docker build -t tomeriva/multi-worker -f ./worker/Dockerfile ./worker
+  - docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
+  - docker push tomeriva/multi-client
+  - docker push tomeriva/multi-nginx
+  - docker push tomeriva/multi-server
+  - docker push tomeriva/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-1'
+  app: 'multi-docker'
+  env: 'MultiDocker-env'
+  bucket_name: 'elasticbeanstalk-us-east-1-517227625497'
+  bucket_path: 'docker-multi'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

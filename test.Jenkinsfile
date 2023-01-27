@@ -8,12 +8,12 @@ pipeline{
         }
         stage("Build Image"){
             steps{
-                sh 'docker build -t tomeriva/testapp -f ./nodejs-app/Dockerfile.dev ./nodejs-app'
+                sh 'docker build -t tomeriva/testa-pp -f ./fibonacci/client/Dockerfile.dev ./nodejs-app'
             }
         }
         stage("test app"){
             steps{
-                sh 'docker run -e CI=true tomeriva/testapp npm test'
+                sh 'docker run -e CI=true tomeriva/test-app npm run test'
             }
         }
     }
