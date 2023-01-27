@@ -16,7 +16,7 @@ pipeline{
                 sh 'docker run -e CI=true tomeriva/test-app npm run test'
             }
         }
-        stage("test app"){
+        stage("delete images"){
             steps{
                 sh 'docker rmi $(docker images -a -q)'
             }
