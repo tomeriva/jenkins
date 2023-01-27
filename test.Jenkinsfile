@@ -4,7 +4,6 @@ pipeline{
         stage("Build Image"){
             steps{
                 sh 'docker build -t tomeriva/testapp ./nodejs-app/.'
-                }
             }
         }
     }
