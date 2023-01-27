@@ -8,7 +8,7 @@ pipeline{
         }
         stage("Build Image"){
             steps{
-                sh 'docker build -t tomeriva/testa-pp -f ./fibonacci/client/Dockerfile.dev ./nodejs-app'
+                sh 'docker build -t tomeriva/test-app -f ./fibonacci/client/Dockerfile.dev ./nodejs-app'
             }
         }
         stage("test app"){
