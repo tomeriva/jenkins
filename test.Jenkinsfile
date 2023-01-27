@@ -36,9 +36,9 @@ pipeline{
                 '''
             }
         }
-        stage("Delete Images"){
+        stage("Delete Docker Builds"){
             steps{
-                sh 'docker rmi $(docker images -a -q) -f'
+                sh 'docker system prune -a -f'
             }
         }
     }
